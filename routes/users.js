@@ -1,7 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var multer = require('multer');
+var User = require('../models/user');
 
+//This was the way I got the multer to work, as opposed to how the tutorial said to do it
 var upload = multer({dest:'uploads/'});
 var cpUpload = upload.single('profileimage');
 
@@ -41,7 +43,7 @@ router.post('/register', function(req, res, next){
 		var profileImageName = 'noimage.png';
 	}
 
-	console.log('ProfileImageName: ' + profileImageName);
+	//console.log('ProfileImageName: ' + profileImageName);
 
 	//form Validation
 	req.checkBody('name', 'Name field is required').notEmpty();
@@ -64,7 +66,7 @@ router.post('/register', function(req, res, next){
 			password2: password2
 		});
 	} else {
-		/*
+		
 		var newUser = new User({
 			name: name,
 			email: email,
@@ -72,13 +74,13 @@ router.post('/register', function(req, res, next){
 			password: password,
 			profileimage: profileImageName
 		});
-*/
+
 
 		// Create User
-		//User.createUser(newUser, function(err, user){
-			//if(err) throw err;
-			//console.log(user);
-		//});
+		User.createUser(newUser, function(err, user){
+			if(err) throw err;
+			console.log(user);
+		});
 
 		// Success Message
 		req.flash('success','You are now registered and may log in');
