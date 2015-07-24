@@ -22,3 +22,12 @@ npm install -g node-gyp
 
 -- You may need to do this
 npm install bcrypt --msvs_version=2013
+
+Multer
+There were some issues I had to fix with the way the tutorial used multer. 
+The tutorial said to use
+//app.use(multer({ dest: '/uploads'}));
+But instead I had to use 
+
+var upload = multer({ dest: '/uploads'})
+var cpUpload = upload.single('profileimage');
